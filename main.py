@@ -1,5 +1,7 @@
 import click
 import requests
+from datetime import datetime
+import calendar
 
 @click.group()
 def cli():
@@ -41,12 +43,17 @@ def ticket_detail(id):
     if not id: #if id is not specified by user, id value == None
         print("Please specify ticket ID when using ticketdetails!")
     elif response.status_code > 299:
-	    print('Status:', response.status_code, 'Problem with the request. Exiting.')
+	    print('Status:', response.status_code, 'Problem with the request. Exiting...')
     else: #success
         response = response.json()
         data = response['ticket']
         submitted_by = data['submitter_id']
-        submit_time = data['created_at']
+        created_at = data['created_at']
+        submit_time = datetime.strptime(created_at, "%Y-%m-%dT%H:%M:%SZ")
+        month = submit_time.strftime("%m")
+        month_name = calendar.month_abbr[int(month)]
+        new_format = f"%d {month_name} %Y %H:%MHrs"
+        submit_time = submit_time.strftime(new_format)
         update_time = data['updated_at']
         subject = data['subject']
         status = data['status'].upper()
