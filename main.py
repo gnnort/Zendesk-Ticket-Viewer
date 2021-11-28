@@ -31,8 +31,26 @@ def view_all_tickets():
                 url = None
 
 @cli.command()
-def ticket_detail():
-    pass
+@click.option('--id')
+def ticket_detail(id):
+    ticket_id = id 
+    url = "https://tron7825.zendesk.com/api/v2/tickets/" + str(ticket_id) + ".json"
+    user = "ngtron25@gmail.com/token"
+    pw = "IN5Kog01geHQSmjZ2cUN2N9dDCFEqBM1py59zrlW"
+    response = requests.get(url, auth=(user, pw))
+    if not id: #if id is not specified by user, id value == None
+        print("Please specify ticket ID when using ticketdetails!")
+    elif response.status_code > 299:
+	    print('Status:', response.status_code, 'Problem with the request. Exiting.')
+    else: #success
+        response = response.json()
+        data = response['ticket']
+        submitted_by = data['submitter_id']
+        submit_time = data['created_at']
+        update_time = data['updated_at']
+        subject = data['subject']
+        status = data['status'].upper()
+        print(f"{status} ticket with Subject:'{subject}' opened by {submitted_by} at UTC {submit_time}")
 
 if __name__ == '__main__':
     cli()
