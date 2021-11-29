@@ -16,24 +16,27 @@ def view_all_tickets():
     page_count = 0
     while url:
         page_count += 1
-        response = requests.get(url, auth= (user,pw))
-        data = response.json() #decode to python dict
-        if response.status_code >= 500:
-	        print('Status:', response.status_code, 'API is unavailable. Exiting...')
-        elif response.status_code >= 400:
-	        print('Status:', response.status_code, 'Problem with the request. Exiting...')
-        else:
-            ticketList = []
-            for ticket in data['tickets']: #data is a dictionary with 'tickets' as a key and a list of tickets as the value
-                ticketList.append("Subject: " + "-" + ticket['subject'] + "-" + " Ticket ID is " + str(ticket['id'])) #convert to fstring?
-            click.echo(f"Page: {page_count}")
-            click.echo('\n'.join(ticketList)) #every elem in list is joined by a new line
-            click.echo('\n')
-            if data['meta']['has_more']:  #cursor pagination
-                url = data['links']['next']
+        try:
+            response = requests.get(url, auth= (user,pw))
+            if response.status_code >= 500:
+	            print('Status:', response.status_code, 'API is unavailable. Exiting...')
+            elif response.status_code >= 400:
+	            print('Status:', response.status_code, 'Problem with the request. Exiting...')
             else:
-                url = None
-    return 10
+                data = response.json() #decode to python dict
+                ticketList = []
+                for ticket in data['tickets']: #data is a dictionary with 'tickets' as a key and a list of tickets as the value
+                    ticketList.append("Subject: " + "-" + ticket['subject'] + "-" + " Ticket ID is " + str(ticket['id'])) #convert to fstring?
+                click.echo(f"Page: {page_count}")
+                click.echo('\n'.join(ticketList)) #every elem in list is joined by a new line
+                click.echo('\n')
+                if data['meta']['has_more']:  #cursor pagination
+                    url = data['links']['next']
+                else:
+                    url = None
+        except (requests.ConnectionError, requests.Timeout) as exception:
+            url = None
+            print('Request timed out. Check your internet connection and try again!')
 
 @cli.command(options_metavar='<options>')
 @click.option('--id', help='Specify ID', metavar='<int>')
