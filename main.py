@@ -34,6 +34,7 @@ def view_all_tickets():
             else:
                 url = None
 
+
 @cli.command(options_metavar='<options>')
 @click.option('--id', help='Specify ID', metavar='<int>')
 def ticket_detail(id):
