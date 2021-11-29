@@ -5,7 +5,7 @@ import calendar
 
 @click.group()
 def cli():
-    "To be modified"
+    "Input <command> --help to view functionality of command"
 
 @cli.command()
 def view_all_tickets():
@@ -18,9 +18,10 @@ def view_all_tickets():
         page_count += 1
         response = requests.get(url, auth= (user,pw))
         data = response.json() #decode to python dict
-        if response.status_code > 299:
-            print("Error", response.status_code)
-            quit
+        if response.status_code >= 500:
+	        print('Status:', response.status_code, 'API is unavailable. Exiting...')
+        elif response.status_code >= 400:
+	        print('Status:', response.status_code, 'Problem with the request. Exiting...')
         else:
             ticketList = []
             for ticket in data['tickets']: #data is a dictionary with 'tickets' as a key and a list of tickets as the value
@@ -44,7 +45,9 @@ def ticket_detail(id):
     response = requests.get(url, auth=(user, pw))
     if not id: #if id is not specified by user, id value == None
         print("Please specify ticket ID when using ticketdetails!")
-    elif response.status_code > 299:
+    elif response.status_code >= 500:
+	    print('Status:', response.status_code, 'API is unavailable. Exiting...')
+    elif response.status_code >= 400:
 	    print('Status:', response.status_code, 'Problem with the request. Exiting...')
     else: #success
         response = response.json()
