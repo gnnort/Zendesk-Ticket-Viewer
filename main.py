@@ -2,14 +2,33 @@ import click
 import requests
 from datetime import datetime
 import calendar
+
 user = "ngtron25@gmail.com/token"
 pw = "IN5Kog01geHQSmjZ2cUN2N9dDCFEqBM1py59zrlW"
+
 @click.group()
 def cli():
-    "Input <command> --help to view functionality of command"
+    """
+    \b
+      =%%%%%%%%%%%#  #%%%%%%%%%%%=      
+       :%%%%%%%%%%#  #%%%%%%%%%%:       
+         :%%%%%%%%#  #%%%%%%%%:         
+            ---   ,  #%%%%%%:          
+                :%#  #%%%%%:            
+              :%%%#  #%%%:              
+             :%%%%#  #%:               
+            :%%%%%#  `     __          
+          :%%%%%%%#     :%%%%%%:       
+        :%%%%%%%%%#   :%%%%%%%%%%:     
+       :%%%%%%%%%%#  :%%%%%%%%%%%%:
+       
+Welcome to the Zendesk Ticket Viewer!
+Type python main.py <command> to use
+Use python main.py <command> --help for detailed instructions on each command    
+    """   
 
 @cli.command()
-def view_all_tickets():
+def all_tickets():
     """View all tickets in account with 25 tickets per page"""
     url = "https://tron7825.zendesk.com/api/v2/tickets" + ".json" + "?page[size]=25"   #each page will have 25 tickets #what is the .json for?
     page_count = 0
@@ -25,7 +44,7 @@ def view_all_tickets():
                 data = response.json() #decode to python dict
                 ticketList = []
                 for ticket in data['tickets']: #data is a dictionary with 'tickets' as a key and a list of tickets as the value
-                    ticketList.append("Subject: " + "-" + ticket['subject'] + "-" + " Ticket ID is " + str(ticket['id'])) #convert to fstring?
+                    ticketList.append(f"Ticket ID: {ticket['id']} Subject: '{ticket['subject']}'") #convert to fstring?
                 click.echo(f"Page: {page_count}")
                 click.echo('\n'.join(ticketList)) #every elem in list is joined by a new line
                 click.echo('\n')

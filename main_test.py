@@ -1,5 +1,5 @@
 from click.testing import CliRunner
-from main import view_all_tickets, ticket_detail
+from main import all_tickets, ticket_detail
 import unittest
 
 class Ticket_detailTest(unittest.TestCase):
@@ -11,21 +11,29 @@ class Ticket_detailTest(unittest.TestCase):
         self.assertEqual(result.output, test_string, "Should be equal")
         self.assertEqual(result.exit_code, 0, "Should be 0")
     
+    def test_ticket_detail_INPUTERROR(self):
+        runner = CliRunner()
+        test_string = "Status: 400 Problem with the request. Ensure your input is a positive integer. Exiting...\n"
+        result = runner.invoke(ticket_detail, ['--id', 'f'] )
+        self.assertEqual(result.output, test_string)
+    
     def test_ticket_detail_CLIENTERROR(self):
         runner = CliRunner()
-        test_string = "Status: 400 Problem with the request. Exiting...\n"
+        test_string = "Status: 400 Problem with the request. Ensure your input is a positive integer. Exiting...\n"
         result = runner.invoke(ticket_detail, ['--id', -1])
         self.assertEqual(result.output, test_string, "Should be equal")
 
+    def test_ticket_detail_CONNECTIONFAILED(self):
+        pass #how to simulate no connection?
     def test_ticket_detail_SERVERERROR(self):
         pass
 
 
 class View_all_ticketsTest(unittest.TestCase):
 
-    def test_view_all_tickets_SUCCESS(self):
+    def test_all_tickets_SUCCESS(self):
         runner = CliRunner()
-        result = runner.invoke(view_all_tickets)
+        result = runner.invoke(all_tickets)
         self.assertEqual(result.exit_code, 0)
         #how do i test for this output?
     
