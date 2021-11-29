@@ -9,6 +9,7 @@ def cli():
 
 @cli.command()
 def view_all_tickets():
+    """View all tickets in account with 25 tickets per page"""
     url = "https://tron7825.zendesk.com/api/v2/tickets" + ".json" + "?page[size]=25"   #each page will have 25 tickets #what is the .json for?
     user = "ngtron25@gmail.com/token"
     pw = "IN5Kog01geHQSmjZ2cUN2N9dDCFEqBM1py59zrlW"
@@ -32,9 +33,10 @@ def view_all_tickets():
             else:
                 url = None
 
-@cli.command()
-@click.option('--id')
+@cli.command(options_metavar='<options>')
+@click.option('--id', help='Specify ID', metavar='<int>')
 def ticket_detail(id):
+    """View details of a ticket with user-provided id"""
     ticket_id = id 
     url = "https://tron7825.zendesk.com/api/v2/tickets/" + str(ticket_id) + ".json"
     user = "ngtron25@gmail.com/token"
