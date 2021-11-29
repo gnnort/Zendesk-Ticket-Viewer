@@ -37,8 +37,10 @@ def all_tickets():
 
     url = "https://tron7825.zendesk.com/api/v2/tickets" + ".json" + "?page[size]=25"   #each page will have 25 tickets #what is the .json for?
     page_count = 0
+
     while url:
         page_count += 1
+
         try:
             response = requests.get(url, auth= (user,pw))
             if response.status_code >= 500:
@@ -48,15 +50,19 @@ def all_tickets():
             else:
                 data = response.json() #decode to python dict
                 ticketList = []
+
                 for ticket in data['tickets']: #data is a dictionary with 'tickets' as a key and a list of tickets as the value
                     ticketList.append(f"Ticket ID: {ticket['id']} Subject: '{ticket['subject']}'") #convert to fstring?
                 click.echo(f"Page: {page_count}")
                 click.echo('\n'.join(ticketList)) #every elem in list is joined by a new line
                 click.echo('\n')
+
                 if data['meta']['has_more']:  #cursor pagination
                     url = data['links']['next']
                 else:
                     url = None
+
+
         except (requests.ConnectionError, requests.Timeout) as exception:
             url = None
             click.echo('Request timed out. Check your internet connection and try again!')
@@ -71,9 +77,13 @@ def ticket_detail(id):
     ticket_id = id 
     url = "https://tron7825.zendesk.com/api/v2/tickets/" + str(ticket_id) + ".json"
     timeout = 8 #try to connect for 8s before timeout
+
     if not id: #if id is not specified by user, id value == None
         click.echo("Please specify ticket ID when using ticketdetails!")
+    elif not id.isdigit():
+        click.echo("Please ensure your input is a positive integer")
     else:
+
         try:
             response = requests.get(url, auth=(user, pw), timeout=timeout)
             if response.status_code >= 500:
@@ -94,6 +104,7 @@ def ticket_detail(id):
                 subject = ticket_data['subject']
                 status = ticket_data['status'].upper()
                 click.echo(f"{status} ticket with Subject:'{subject}' opened by {submitted_by} at UTC {submit_time}")
+
 
         except (requests.ConnectionError, requests.Timeout) as exception:
             click.echo('Request timed out. Check your internet connection and try again!')

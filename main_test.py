@@ -11,23 +11,32 @@ class Ticket_detailTest(unittest.TestCase):
         self.assertEqual(result.output, test_string, "Should be equal")
         self.assertEqual(result.exit_code, 0, "Should be 0")
     
-    def test_ticket_detail_INPUTERROR(self):
+    def test_ticket_detail_NOTPOSITIVEINTEGER(self):
         runner = CliRunner()
-        test_string = "Status: 400 Problem with the request. Ensure your input is a positive integer.\n\tExiting...\n"
+        test_string = "Please ensure your input is a positive integer\n"
         result = runner.invoke(ticket_detail, ['--id', 'f'], "Should be equal" )
+        self.assertEqual(result.exit_code, 0)
         self.assertEqual(result.output, test_string)
     
+    def test_ticket_detail_SUPERSCRIPT(self):
+        runner = CliRunner()
+        test_string = 'Status: 400 Problem with the request. Ensure your input is a positive integer.\n\tExiting...\n'
+        result = runner.invoke(ticket_detail, ['--id', '¹²³'])
+        self.assertEqual(result.exit_code,0)
+        self.assertEqual(result.output, test_string)
+
     def test_ticket_detail_404ERROR(self):
         runner = CliRunner()
         test_string = 'Status: 404 ticket not found. Ensure the ticket id exists!\n'
         result = runner.invoke(ticket_detail, ['--id', 1000])
+        self.assertEqual(result.exit_code, 0)
         self.assertEqual(result.output, test_string, "Should be equal")
-
-    def test_ticket_detail_CLIENTERROR(self):
+    
+    def test_ticket_detail_NOINPUT(self):
         runner = CliRunner()
-        test_string = "Status: 400 Problem with the request. Ensure your input is a positive integer.\n\tExiting...\n"
-        result = runner.invoke(ticket_detail, ['--id', -1])
-        self.assertEqual(result.output, test_string, "Should be equal")
+        result = runner.invoke(ticket_detail)
+        self.assertEqual(result.output, "Please specify ticket ID when using ticketdetails!\n")
+        self.assertEqual(result.exit_code, 0)
 
     def test_ticket_detail_CONNECTIONFAILED(self):
         pass #how to simulate no connection?
@@ -38,9 +47,7 @@ class Ticket_detailTest(unittest.TestCase):
 class View_all_ticketsTest(unittest.TestCase):
 
     def test_all_tickets_SUCCESS(self):
-        runner = CliRunner()
-        result = runner.invoke(all_tickets)
-        self.assertEqual(result.exit_code, 0)
+        pass
         #how do i test for this output?
     
     def test_view_all_tickets_CLIENTERROR(self):
@@ -49,7 +56,9 @@ class View_all_ticketsTest(unittest.TestCase):
     def test_view_all_tickets_SERVERERROR(self):
         pass
 
-
+#click exit_code:1 --> exception
+# exit_code:2 --> Usage error. Program aborts
+# exit_code:0 --> success
 
 if __name__ == '__main__':
     unittest.main()
