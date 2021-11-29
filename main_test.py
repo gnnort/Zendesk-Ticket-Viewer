@@ -13,13 +13,19 @@ class Ticket_detailTest(unittest.TestCase):
     
     def test_ticket_detail_INPUTERROR(self):
         runner = CliRunner()
-        test_string = "Status: 400 Problem with the request. Ensure your input is a positive integer. Exiting...\n"
-        result = runner.invoke(ticket_detail, ['--id', 'f'] )
+        test_string = "Status: 400 Problem with the request. Ensure your input is a positive integer.\n\tExiting...\n"
+        result = runner.invoke(ticket_detail, ['--id', 'f'], "Should be equal" )
         self.assertEqual(result.output, test_string)
     
+    def test_ticket_detail_404ERROR(self):
+        runner = CliRunner()
+        test_string = 'Status: 404 ticket not found. Ensure the ticket id exists!\n'
+        result = runner.invoke(ticket_detail, ['--id', 1000])
+        self.assertEqual(result.output, test_string, "Should be equal")
+
     def test_ticket_detail_CLIENTERROR(self):
         runner = CliRunner()
-        test_string = "Status: 400 Problem with the request. Ensure your input is a positive integer. Exiting...\n"
+        test_string = "Status: 400 Problem with the request. Ensure your input is a positive integer.\n\tExiting...\n"
         result = runner.invoke(ticket_detail, ['--id', -1])
         self.assertEqual(result.output, test_string, "Should be equal")
 
