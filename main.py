@@ -26,14 +26,14 @@ def view_all_tickets():
             ticketList = []
             for ticket in data['tickets']: #data is a dictionary with 'tickets' as a key and a list of tickets as the value
                 ticketList.append("Subject: " + "-" + ticket['subject'] + "-" + " Ticket ID is " + str(ticket['id'])) #convert to fstring?
-            print(f"Page: {page_count}")
-            print('\n'.join(ticketList)) #every elem in list is joined by a new line
-            print('\n')
+            click.echo(f"Page: {page_count}")
+            click.echo('\n'.join(ticketList)) #every elem in list is joined by a new line
+            click.echo('\n')
             if data['meta']['has_more']:  #cursor pagination
                 url = data['links']['next']
             else:
                 url = None
-
+    return 10
 
 @cli.command(options_metavar='<options>')
 @click.option('--id', help='Specify ID', metavar='<int>')
@@ -63,7 +63,7 @@ def ticket_detail(id):
         update_time = data['updated_at']
         subject = data['subject']
         status = data['status'].upper()
-        print(f"{status} ticket with Subject:'{subject}' opened by {submitted_by} at UTC {submit_time}")
+        click.echo(f"{status} ticket with Subject:'{subject}' opened by {submitted_by} at UTC {submit_time}")
 
 if __name__ == '__main__':
     cli()
