@@ -2,7 +2,8 @@ import click
 import requests
 from datetime import datetime
 import calendar
-
+user = "ngtron25@gmail.com/token"
+pw = "IN5Kog01geHQSmjZ2cUN2N9dDCFEqBM1py59zrlW"
 @click.group()
 def cli():
     "Input <command> --help to view functionality of command"
@@ -11,8 +12,6 @@ def cli():
 def view_all_tickets():
     """View all tickets in account with 25 tickets per page"""
     url = "https://tron7825.zendesk.com/api/v2/tickets" + ".json" + "?page[size]=25"   #each page will have 25 tickets #what is the .json for?
-    user = "ngtron25@gmail.com/token"
-    pw = "IN5Kog01geHQSmjZ2cUN2N9dDCFEqBM1py59zrlW"
     page_count = 0
     while url:
         page_count += 1
@@ -44,8 +43,6 @@ def ticket_detail(id):
     """View details of a ticket with user-provided id"""
     ticket_id = id 
     url = "https://tron7825.zendesk.com/api/v2/tickets/" + str(ticket_id) + ".json"
-    user = "ngtron25@gmail.com/token"
-    pw = "IN5Kog01geHQSmjZ2cUN2N9dDCFEqBM1py59zrlW"
     timeout = 8 #try to connect for 8s before timeout
     if not id: #if id is not specified by user, id value == None
         print("Please specify ticket ID when using ticketdetails!")
