@@ -43,27 +43,33 @@ def ticket_detail(id):
     url = "https://tron7825.zendesk.com/api/v2/tickets/" + str(ticket_id) + ".json"
     user = "ngtron25@gmail.com/token"
     pw = "IN5Kog01geHQSmjZ2cUN2N9dDCFEqBM1py59zrlW"
-    response = requests.get(url, auth=(user, pw))
+    timeout = 8 #try to connect for 8s before timeout
     if not id: #if id is not specified by user, id value == None
         print("Please specify ticket ID when using ticketdetails!")
-    elif response.status_code >= 500:
-	    print('Status:', response.status_code, 'API is unavailable. Exiting...')
-    elif response.status_code >= 400:
-	    print('Status:', response.status_code, 'Problem with the request. Exiting...')
-    else: #success
-        response = response.json()
-        data = response['ticket']
-        submitted_by = data['submitter_id']
-        created_at = data['created_at']
-        submit_time = datetime.strptime(created_at, "%Y-%m-%dT%H:%M:%SZ")
-        month = submit_time.strftime("%m")
-        month_name = calendar.month_abbr[int(month)]
-        new_format = f"%d {month_name} %Y %H:%MHrs"
-        submit_time = submit_time.strftime(new_format)
-        update_time = data['updated_at']
-        subject = data['subject']
-        status = data['status'].upper()
-        click.echo(f"{status} ticket with Subject:'{subject}' opened by {submitted_by} at UTC {submit_time}")
+    else:
+        try:
+            response = requests.get(url, auth=(user, pw), timeout=timeout)
+            if response.status_code >= 500:
+	            print('Status:', response.status_code, 'API is unavailable. Exiting...')
+            elif response.status_code >= 400:
+	            print('Status:', response.status_code, 'Problem with the request. Ensure your input is a positive integer. Exiting...')
+            else:
+                response = response.json()
+                data = response['ticket']
+                submitted_by = data['submitter_id']
+                created_at = data['created_at']
+                submit_time = datetime.strptime(created_at, "%Y-%m-%dT%H:%M:%SZ")
+                month = submit_time.strftime("%m")
+                month_name = calendar.month_abbr[int(month)]
+                new_format = f"%d {month_name} %Y %H:%MHrs"
+                submit_time = submit_time.strftime(new_format)
+                update_time = data['updated_at']
+                subject = data['subject']
+                status = data['status'].upper()
+                click.echo(f"{status} ticket with Subject:'{subject}' opened by {submitted_by} at UTC {submit_time}")
+
+        except (requests.ConnectionError, requests.Timeout) as exception:
+            print('Request timed out. Check your internet connection and try again!')
 
 if __name__ == '__main__':
     cli()

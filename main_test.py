@@ -8,18 +8,18 @@ class Ticket_detailTest(unittest.TestCase):
         runner = CliRunner()
         test_string = "OPEN ticket with Subject:'Sample ticket: Meet the ticket' opened by 903435193506 at UTC 24 Nov 2021 06:54Hrs\n"
         result = runner.invoke(ticket_detail, ['--id', 1])
-        self.assertEqual(result.output, test_string)
-        self.assertEqual(result.exit_code, 0)
+        self.assertEqual(result.output, test_string, "Should be equal")
+        self.assertEqual(result.exit_code, 0, "Should be 0")
     
     def test_ticket_detail_CLIENTERROR(self):
         runner = CliRunner()
         test_string = "Status: 400 Problem with the request. Exiting...\n"
         result = runner.invoke(ticket_detail, ['--id', -1])
-        self.assertEqual(result.output, test_string)
+        self.assertEqual(result.output, test_string, "Should be equal")
 
     def test_ticket_detail_SERVERERROR(self):
         pass
-    
+
 
 class View_all_ticketsTest(unittest.TestCase):
 
