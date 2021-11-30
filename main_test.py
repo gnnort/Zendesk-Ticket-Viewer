@@ -1,14 +1,15 @@
 from click.testing import CliRunner
 from main import all_tickets, ticket_detail
+
+
 import unittest
 
 class Ticketdetail_Test(unittest.TestCase):
 
     def test_ticket_detail_SUCCESS(self):
         runner = CliRunner()
-        test_string = "Please enter a valid Ticket ID: 1\nOPEN ticket with Subject:'Sample ticket: Meet the ticket' opened by 903435193506 at UTC 24 Nov 2021 06:54Hrs\n"
         result = runner.invoke(ticket_detail, input= "1")
-        self.assertEqual(result.output, test_string, "Should be equal")
+        self.assertEqual(result.exit_code, 0)
         self.assertFalse(result.exception)
     
     def test_ticket_detail_NOTPOSITIVEINTEGER(self):
