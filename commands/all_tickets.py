@@ -46,3 +46,6 @@ def all_tickets():
         except (requests.ConnectionError, requests.Timeout) as exception:
             url = None
             click.echo('Request timed out. Check your internet connection and try again!')
+
+if __name__ == '__main__':
+    all_tickets_group()
