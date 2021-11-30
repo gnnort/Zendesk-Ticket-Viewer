@@ -62,12 +62,12 @@ Ticket requests within this application make use of the python requests, a simpl
 
 For authentication, I am using email and token verification for slightly better security by not requiring the account's password to be in the code files. I am currently working on implementing OAuth 2.0 to further improve security!
 
-
-#### 'all-tickets' command
+### Commands
+#### 'all-tickets'
 
 This command requests for the user's tickets from the Zendesk API, in chunks of 25. The code appends these 25 tickets to a list and prints out its contents to the command-line with a page number; this will continue until reaching the last page. [Cursor pagination was used for this as it is preferred over offset pagination](https://developer.zendesk.com/documentation/developer-tools/working-with-data/understanding-the-limitations-of-offset-pagination/).
 
-#### 'ticket-detail' command
+#### 'ticket-detail'
 
 This command takes in user input of a ticket ID (positive integer) to request for a specific ticket. Ticket IDs can be viewed using the all-tickets command.
 
