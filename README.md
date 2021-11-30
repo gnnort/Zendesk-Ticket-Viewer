@@ -48,11 +48,6 @@ python main.py ticket-detail --id <positive integer>
 ```
 ### Main Component Description
 
-- ```index.js``` : Program entry point, communicates data between components.
-- ```Ticket.js``` : Data model for tickets.
-- ```TicketFetcher.js``` : Makes requests to the Zendesk API and returns tickets.
-- ```Display.js``` : Prints output and takes user input.
-- ```Message.js``` : Contains general text for output, prompts, warnings, etc.
 
 ### Design Choices
 
