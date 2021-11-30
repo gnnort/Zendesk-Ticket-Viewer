@@ -11,9 +11,7 @@ def ticket_detail_group():
     pass
 
 
-
-@ticket_detail_group.command(options_metavar='<options>')
-#@click.option('--id', help='Specify ID', metavar='<int>')
+@ticket_detail_group.command()
 def ticket_detail():
 
     """View details of a ticket with user-provided id"""

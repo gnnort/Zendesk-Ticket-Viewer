@@ -44,15 +44,15 @@ $ python main_test.py
 python main.py all-tickets
 ```
 ```
-python main.py ticket-detail --id <positive integer>
+python main.py ticket-detail
 ```
 ### Main Component Description
 
 
 ### Design Choices
 
-#### Why Click
-Click is a Python package for creating beautiful command line interfaces in a composable way with as little code as necessary It makes use of python decorators for high configurability. I chose to use click for its simplicity and speed.
+#### Why Click?
+Click is a Python package for creating command line interfaces and makes use of python decorators for high configurability. I chose to use click for its simplicity and speed.
 For exception handling, click internally runs in standalone mode and uses exceptions to signal various error conditions that the user of the application might have caused. This has the side-effect of having an implicit sys.exit() i.e. the program exits every time a command is executed. This is fine for the purposes of my application as no values are reused. 
 However, should you want to disable the implicit sys.exit(), [Click 3.0 allows you to use the Command.main() method to disable standalone mode](https://click.palletsprojects.com/en/8.0.x/exceptions/#what-if-i-don-t-want-that). NOTE: This disables exception handling.
 

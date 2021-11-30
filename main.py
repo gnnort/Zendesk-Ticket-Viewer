@@ -23,6 +23,7 @@ def cli():
 Welcome to the Zendesk Ticket Viewer!
 Type python main.py <command> to use
 Use python main.py <command> --help for detailed instructions on each command    
+
     """   
 
 #commands 
