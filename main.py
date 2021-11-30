@@ -73,7 +73,8 @@ def all_tickets():
 def ticket_detail():
 
     """View details of a ticket with user-provided id"""
-    id = click.prompt('Please enter a valid integer', type=int)
+
+    id = click.prompt('Please enter a valid Ticket ID', type=int)
     #ticket_id = id 
     url = "https://tron7825.zendesk.com/api/v2/tickets/" + str(id) + ".json"
     timeout = 8 #try to connect for 8s before timeout
