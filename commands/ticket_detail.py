@@ -13,6 +13,7 @@ def ticket_detail_group():
 
 @ticket_detail_group.command()
 def ticket_detail():
+    click.echo("http://localhost:8080/hello")
 
     """View details of a ticket with user-provided id"""
 
