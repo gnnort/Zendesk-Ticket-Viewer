@@ -13,8 +13,8 @@ class Ticket_detailTest(unittest.TestCase):
     
     def test_ticket_detail_NOTPOSITIVEINTEGER(self):
         runner = CliRunner()
-        test_string = "Please ensure your input is a positive integer\n"
-        result = runner.invoke(ticket_detail, ['--id', 'f'], "Should be equal" )
+        test_string = "Please ensure your input is a positive integer\nExiting...\n"
+        result = runner.invoke(ticket_detail, ['--id', '-10'], "Should be equal" )
         self.assertEqual(result.exit_code, 0)
         self.assertEqual(result.output, test_string)
     

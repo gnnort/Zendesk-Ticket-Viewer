@@ -69,19 +69,19 @@ def all_tickets():
 
 
 @cli.command(options_metavar='<options>')
-@click.option('--id', help='Specify ID', metavar='<int>')
-def ticket_detail(id):
+#@click.option('--id', help='Specify ID', metavar='<int>')
+def ticket_detail():
 
     """View details of a ticket with user-provided id"""
-
-    ticket_id = id 
-    url = "https://tron7825.zendesk.com/api/v2/tickets/" + str(ticket_id) + ".json"
+    id = click.prompt('Please enter a valid integer', type=int)
+    #ticket_id = id 
+    url = "https://tron7825.zendesk.com/api/v2/tickets/" + str(id) + ".json"
     timeout = 8 #try to connect for 8s before timeout
 
     if not id: #if id is not specified by user, id value == None
         click.echo("Please specify ticket ID when using ticketdetails!")
-    elif not id.isdigit():
-        click.echo("Please ensure your input is a positive integer")
+    elif id < 0:
+        click.echo("Please ensure your input is a positive integer\nExiting...")
     else:
 
         try:
