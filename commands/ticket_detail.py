@@ -3,6 +3,8 @@ import requests
 import calendar
 from datetime import datetime
 
+from oauth import get_access_token, get_initial_code
+
 user = "ngtron25@gmail.com/token"
 pw = "IN5Kog01geHQSmjZ2cUN2N9dDCFEqBM1py59zrlW"
 
@@ -13,7 +15,10 @@ def ticket_detail_group():
 
 @ticket_detail_group.command()
 def ticket_detail():
-    click.echo("http://localhost:8080/hello")
+    initial_code = get_initial_code()
+    access_token = get_access_token(initial_code)
+    bearer_token = 'Bearer ' + access_token
+    header = {'Authorization': bearer_token}
 
     """View details of a ticket with user-provided id"""
 
