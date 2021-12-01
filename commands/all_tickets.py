@@ -2,6 +2,8 @@ import click
 import requests
 from datetime import datetime
 
+from requests.models import Response
+
 from oauth import authenticate
 
 user = "ngtron25@gmail.com/token"
@@ -48,6 +50,17 @@ def all_tickets():
         except (requests.ConnectionError, requests.Timeout) as exception:
             url = None
             click.echo('Request timed out. Check your internet connection and try again!')
+
+# @all_tickets_group.command()
+# def tester():
+#     header = authenticate()
+
+#     url = "https://tron7825/api/v2/oauth/tokens/current.json" 
+
+#     response = requests.get(url, headers= header)
+#     data = response.json()
+#     print(data)
+
 
 if __name__ == '__main__':
     all_tickets_group()

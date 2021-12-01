@@ -40,9 +40,10 @@ def get_access_token(retrieved_code):
 def authenticate():
     my_code = get_initial_code()
     my_access_token = get_access_token(my_code)
-
-    access_token = my_access_token
-    bearer_token = 'Bearer ' + access_token
+    if my_access_token == 'paddington':
+        return "Unable to get final accesstoken"
+    final_access_token = my_access_token
+    bearer_token = 'Bearer ' + final_access_token
     header = {'Authorization': bearer_token}
     return header
 

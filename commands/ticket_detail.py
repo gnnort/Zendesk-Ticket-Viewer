@@ -3,7 +3,7 @@ import requests
 import calendar
 from datetime import datetime
 
-from oauth import get_access_token, get_initial_code
+from oauth import authenticate, get_access_token, get_initial_code
 
 user = "ngtron25@gmail.com/token"
 pw = "IN5Kog01geHQSmjZ2cUN2N9dDCFEqBM1py59zrlW"
@@ -15,10 +15,7 @@ def ticket_detail_group():
 
 @ticket_detail_group.command()
 def ticket_detail():
-    initial_code = get_initial_code()
-    access_token = get_access_token(initial_code)
-    bearer_token = 'Bearer ' + access_token
-    header = {'Authorization': bearer_token}
+    header = authenticate()
 
     """View details of a ticket with user-provided id"""
 
@@ -34,7 +31,7 @@ def ticket_detail():
     else:
 
         try:
-            response = requests.get(url, auth=(user, pw), timeout=timeout)
+            response = requests.get(url, headers = header, timeout=timeout)
             if response.status_code >= 500:
 	            click.echo(f'Status: {response.status_code} API is unavailable.\n\tExiting...')
             elif response.status_code == 404:
