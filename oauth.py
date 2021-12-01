@@ -1,39 +1,56 @@
-from httphandler import get_code, run_server
+from requests.api import head
+from httphandler import run_server
 from urllib.parse import urlencode
 import requests
 import json
 
 def get_initial_code():
-    run_server()
     parameters = {
             'response_type': 'code',
             'redirect_uri': 'http://localhost:8080',
             'client_id': 'tron_zendesk_ticket_viewer',
             'scope': 'read'}
     url = 'https://tron7825.zendesk.com/oauth/authorizations/new?' + urlencode(parameters)
-    print(url)
-    return get_code()
 
-def get_access_token():
+    print(url)
+    retrieved_code = run_server()
+    print(retrieved_code)
+    return retrieved_code
+
+def get_access_token(retrieved_code):
     parameters = {
             'grant_type': 'authorization_code',
-            'code': get_initial_code(),
+            'code': retrieved_code,
             'client_id': 'tron_zendesk_ticket_viewer',
-            'client_secret': 'bee44a1a253509adbd787f92d95d4bf4fb95ddd2e9e498f05d6216e9449ddcb6 ',
+            'client_secret': '6fd9c62d1b8aff2194f48a9e2dd5828f52c5e20fe718ca61a3e629d7e0c591bb',
             'redirect_uri': 'http://localhost:8080',
-            'scope': 'read'}
+            'scope': 'read write'}
     payload = json.dumps(parameters)
     header = {'Content-Type': 'application/json'}
-    url = 'https://your_subdomain.zendesk.com/oauth/tokens'
+    url = 'https://tron7825.zendesk.com/oauth/tokens'
     r = requests.post(url, data=payload, headers=header)
     if r.status_code != 200:
-        print("couldnt get access token")
+        print(r.reason)
+        return 'paddington'
     else:
         data = r.json()
         access_token = data['access_token']
         return access_token
 
 def authenticate():
-    access_token = get_access_token()
+    my_code = get_initial_code()
+    my_access_token = get_access_token(my_code)
+
+    access_token = my_access_token
     bearer_token = 'Bearer ' + access_token
     header = {'Authorization': bearer_token}
+    return header
+
+
+def main():
+    pass
+
+
+
+if __name__ == "__main__":
+    main()

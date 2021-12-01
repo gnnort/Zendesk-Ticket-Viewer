@@ -8,9 +8,9 @@ class Requesthandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header('Content-Type:', 'text/html')  #details content type that page will display
         self.end_headers()
-        if 'hello' in self.path:
+        if 'code' in self.path:
             global CODE 
-            CODE = self.path[1:]
+            CODE = self.path[7:]
             
 
 class Httpserver(HTTPServer):
@@ -27,14 +27,9 @@ def run_server():
     server = Httpserver(('', PORT), Requesthandler)
     print('Server running on '+ str(PORT))
     server.handle_request()
-
-def get_code():
-    print(CODE)
     return CODE
 
 
-
 if __name__ == '__main__':
-    get_code()
     run_server()
     

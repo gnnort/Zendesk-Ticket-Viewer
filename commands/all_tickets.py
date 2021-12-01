@@ -2,6 +2,8 @@ import click
 import requests
 from datetime import datetime
 
+from oauth import authenticate
+
 user = "ngtron25@gmail.com/token"
 pw = "IN5Kog01geHQSmjZ2cUN2N9dDCFEqBM1py59zrlW"
 
@@ -12,7 +14,7 @@ def all_tickets_group():
 
 @all_tickets_group.command()
 def all_tickets():
-
+    header = authenticate()
     """View all tickets in account with 25 tickets per page"""
 
     url = "https://tron7825.zendesk.com/api/v2/tickets" + ".json" + "?page[size]=25"   #each page will have 25 tickets #what is the .json for?
@@ -22,7 +24,7 @@ def all_tickets():
         page_count += 1
 
         try:
-            response = requests.get(url, auth= (user,pw))
+            response = requests.get(url, headers= header)
             if response.status_code >= 500:
 	            click.echo('Status:', response.status_code, 'API is unavailable. Exiting...')
             elif response.status_code >= 400:
