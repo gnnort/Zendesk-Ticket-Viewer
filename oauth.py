@@ -15,7 +15,9 @@ def get_initial_code():
             'scope': 'read'}
     url = 'https://tron7825.zendesk.com/oauth/authorizations/new?' + urlencode(parameters)
     webbrowser.open(url, new = 1, autoraise= True)                                             #webbrowser must be opened first before running server. new = 1 opens in new browser window if possible
-    retrieved_code = run_server()                                                              #spin up server to listen for get request and retrieve code
+    retrieved_code = run_server()
+    if retrieved_code == "Error":
+        print("Authentication Failed when attempting to retrieve code from API")                                                              #spin up server to listen for get request and retrieve code
     return retrieved_code
 
 
@@ -32,8 +34,8 @@ def get_access_token(retrieved_code):
     url = 'https://tron7825.zendesk.com/oauth/tokens'
     r = requests.post(url, data=payload, headers=header)
     if r.status_code != 200:
-        print(r.reason)
-        return 'paddington'
+        print("Could not receive access token from API")
+        return 'Failed'
     else:
         data = r.json()
         access_token = data['access_token']
@@ -41,13 +43,15 @@ def get_access_token(retrieved_code):
 
 
 def authenticate():
+    
     my_code = get_initial_code()
     if my_code == "Error":
-        print("Authentication failed!")
         return "Failed"
+
     my_access_token = get_access_token(my_code)
-    if my_access_token == 'paddington':
-        return "Unable to get final accesstoken"
+    if my_access_token == 'Failed':
+        return "Failed"
+
     final_access_token = my_access_token
     bearer_token = 'Bearer ' + final_access_token
     header = {'Authorization': bearer_token}

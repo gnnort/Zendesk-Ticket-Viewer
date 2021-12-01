@@ -7,7 +7,7 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 
 
 
-CODE = 'Error'                                                      #this is the default value of CODE
+CODE = "Error"                                                      #this is the default value of CODE
 
 
 class Requesthandler(BaseHTTPRequestHandler):
