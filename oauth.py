@@ -6,6 +6,7 @@ import json
 import webbrowser
 
 
+
 def get_initial_code():
     parameters = {
             'response_type': 'code',

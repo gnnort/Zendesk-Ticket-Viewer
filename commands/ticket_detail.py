@@ -3,8 +3,8 @@ import click
 import requests
 import calendar
 from datetime import datetime
-
 from oauth import authenticate, get_access_token, get_initial_code
+
 
 
 @click.group()
@@ -17,7 +17,7 @@ def ticket_detail():
 
     if click.confirm('Are you sure you want to continue authentication? This will open a new window'):
         """View details of a ticket with user-provided id"""  #docstring
-        
+
         header = authenticate()
         goodinput = False
 
