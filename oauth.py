@@ -5,6 +5,7 @@ import requests
 import json
 import webbrowser
 
+
 def get_initial_code():
     parameters = {
             'response_type': 'code',
@@ -16,6 +17,7 @@ def get_initial_code():
     print(url)
     retrieved_code = run_server()
     return retrieved_code
+
 
 def get_access_token(retrieved_code):
     parameters = {
@@ -49,10 +51,11 @@ def authenticate():
     return header
 
 
+
+
+
 def main():
     pass
-
-
 
 if __name__ == "__main__":
     main()
