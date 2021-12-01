@@ -1,3 +1,4 @@
+import sys
 import click
 import requests
 from datetime import datetime
@@ -18,6 +19,10 @@ def all_tickets():
         """View all tickets in account with 25 tickets per page"""
 
         header = authenticate()
+        if header == "Failed":                                                                                      #This is the authentication block. if user does not allow app access, exits
+            sys.exit("Authentication Failed\nExiting...") 
+
+
         url = "https://tron7825.zendesk.com/api/v2/tickets" + ".json" + "?page[size]=25"                            #each page will have 25 tickets 
         page_count = 0
 

@@ -35,7 +35,7 @@ def run_server():
     PORT = 8080
     server = Httpserver(('', PORT), Requesthandler)
     print('Server running on '+ str(PORT))
-    server.handle_request()
+    server.handle_request()                                        #handles one request and times out
     return CODE
 
 

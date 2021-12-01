@@ -1,4 +1,5 @@
 from os import stat_result
+import sys
 import click
 import requests
 import calendar
@@ -19,8 +20,11 @@ def ticket_detail():
         """View details of a ticket with user-provided id"""  #docstring
 
         header = authenticate()
-        goodinput = False
+        if header == "Failed":                                                                          #This is the authentication block. if user does not allow app access, exits
+            sys.exit("Authentication Failed\nExiting...")
 
+
+        goodinput = False
         while goodinput == False:
             id = click.prompt('Please enter a valid Ticket ID')
             url = "https://tron7825.zendesk.com/api/v2/tickets/" + str(id) + ".json"
@@ -35,7 +39,6 @@ def ticket_detail():
                 click.echo("Please ensure your input is a positive integer. Try Again!")
             else:
                 goodinput = True    #break out of while loop
-
                 try:
                     response = requests.get(url, headers = header, timeout=10)
 
@@ -59,9 +62,10 @@ def ticket_detail():
                         click.echo(f"{status} ticket with Subject:'{subject}' opened by {submitted_by} at UTC {submit_time}")
 
 
-                except (requests.ConnectionError, requests.Timeout) as exception:
+                except (requests.ConnectionError, requests.Timeout) as connectionError:
                     click.echo('Request timed out. Check your internet connection and try again!')
-
+    else:
+        click.echo("Exiting...")
 
 if __name__ == '__main__':
     ticket_detail_group()

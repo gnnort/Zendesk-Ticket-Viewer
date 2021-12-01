@@ -14,9 +14,8 @@ def get_initial_code():
             'client_id': 'tron_zendesk_ticket_viewer',
             'scope': 'read'}
     url = 'https://tron7825.zendesk.com/oauth/authorizations/new?' + urlencode(parameters)
-    webbrowser.open(url, new = 1, autoraise= False)
-    print(url)
-    retrieved_code = run_server()
+    webbrowser.open(url, new = 1, autoraise= True)                                             #webbrowser must be opened first before running server. new = 1 opens in new browser window if possible
+    retrieved_code = run_server()                                                              #spin up server to listen for get request and retrieve code
     return retrieved_code
 
 
@@ -43,6 +42,9 @@ def get_access_token(retrieved_code):
 
 def authenticate():
     my_code = get_initial_code()
+    if my_code == "Error":
+        print("Authentication failed!")
+        return "Failed"
     my_access_token = get_access_token(my_code)
     if my_access_token == 'paddington':
         return "Unable to get final accesstoken"

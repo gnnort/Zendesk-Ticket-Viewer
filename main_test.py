@@ -1,8 +1,11 @@
 from click.testing import CliRunner
+import unittest
 from main import all_tickets, ticket_detail
 
 
-import unittest
+
+
+
 
 class Ticketdetail_Test(unittest.TestCase):
 
