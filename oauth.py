@@ -3,6 +3,7 @@ from httphandler import run_server
 from urllib.parse import urlencode
 import requests
 import json
+import webbrowser
 
 def get_initial_code():
     parameters = {
@@ -11,10 +12,9 @@ def get_initial_code():
             'client_id': 'tron_zendesk_ticket_viewer',
             'scope': 'read'}
     url = 'https://tron7825.zendesk.com/oauth/authorizations/new?' + urlencode(parameters)
-
+    webbrowser.open(url, new = 1, autoraise= False)
     print(url)
     retrieved_code = run_server()
-    print(retrieved_code)
     return retrieved_code
 
 def get_access_token(retrieved_code):
@@ -22,7 +22,7 @@ def get_access_token(retrieved_code):
             'grant_type': 'authorization_code',
             'code': retrieved_code,
             'client_id': 'tron_zendesk_ticket_viewer',
-            'client_secret': '6fd9c62d1b8aff2194f48a9e2dd5828f52c5e20fe718ca61a3e629d7e0c591bb',
+            'client_secret': '0dc2350f7a5b8242b87f62bd72869f4cceff618850212a7c8146d86c2028840c',
             'redirect_uri': 'http://localhost:8080',
             'scope': 'read write'}
     payload = json.dumps(parameters)
@@ -36,6 +36,7 @@ def get_access_token(retrieved_code):
         data = r.json()
         access_token = data['access_token']
         return access_token
+
 
 def authenticate():
     my_code = get_initial_code()

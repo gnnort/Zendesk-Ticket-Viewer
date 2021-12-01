@@ -1,7 +1,7 @@
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from types import CodeType
 
-CODE = 'Error'
+CODE = 'Error' #this is the default value of CODE
 
 class Requesthandler(BaseHTTPRequestHandler):
     def do_GET(self):#handles get requests
@@ -10,7 +10,7 @@ class Requesthandler(BaseHTTPRequestHandler):
         self.end_headers()
         if 'code' in self.path:
             global CODE 
-            CODE = self.path[7:]
+            CODE = self.path[7:]  #extract code from link
             
 
 class Httpserver(HTTPServer):
