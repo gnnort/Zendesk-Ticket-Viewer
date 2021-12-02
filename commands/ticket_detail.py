@@ -9,7 +9,8 @@ from oauth import authenticate, get_access_token, get_initial_code, retrievedOau
 
 
 
-
+def testing():
+    return False
 
 
 
@@ -37,6 +38,7 @@ def ticket_detail(context):
 
             if id <= 0:
                 click.echo("Please ensure your input is a positive integer. Try Again!")
+
             else:
                 goodinput = True    #break out of while loop
                 try:
@@ -64,6 +66,7 @@ def ticket_detail(context):
 
                 except (requests.ConnectionError, requests.Timeout) as connectionError:
                     click.echo('Request timed out. Check your internet connection and try again!')    
+
     elif not retrievedOauthtoken():
         #authenticate flow
         if click.confirm('Are you sure you want to continue authentication? This will open a new window'):

@@ -12,7 +12,6 @@ from oauth import authenticate, retrievedOauthtoken
 
 
 
-
 @click.group()
 def all_tickets_group():
     pass
