@@ -1,9 +1,10 @@
 import sys
 import click
 import requests
+import json
 from datetime import datetime
 from requests.models import Response
-from oauth import authenticate
+from oauth import authenticate, retrievedOauthtoken
 
 
 
@@ -18,23 +19,19 @@ def all_tickets_group():
 
 
 @all_tickets_group.command()
-def all_tickets():
-    if click.confirm('Are you sure you want to continue authentication? This will open a new window'):
-        """View all tickets in account with 25 tickets per page"""
-
-        header = authenticate()
-        if header == "Failed":                                                                                      #This is the authentication block. if user does not allow app access, exits
-            sys.exit("Authentication Failed\nExiting...") 
-
+@click.pass_context
+def all_tickets(context):
+    if retrievedOauthtoken():
 
         url = "https://tron7825.zendesk.com/api/v2/tickets" + ".json" + "?page[size]=25"                            #each page will have 25 tickets 
         page_count = 0
-
+        with open('oauth_token.json') as json_header_file:                                                          #reads local json file for header
+            header_data = json.load(json_header_file)
         while url:
             page_count += 1
 
             try:
-                response = requests.get(url, headers= header, timeout= 10)
+                response = requests.get(url, headers=header_data, timeout= 10)
                 if response.status_code >= 500:
                     click.echo('Status:', response.status_code, 'API is unavailable. Exiting...')
                 elif response.status_code >= 400:
@@ -57,8 +54,23 @@ def all_tickets():
             except (requests.ConnectionError, requests.Timeout) as exception:
                 url = None
                 click.echo('Request timed out. Check your internet connection and try again!')
-    else:
-        click.echo("Exiting...")
+
+
+    elif not retrievedOauthtoken():
+        #authenticate
+
+        if click.confirm('Are you sure you want to continue authentication? This will open a new window'):
+            """View all tickets in account with 25 tickets per page"""
+
+            authState = authenticate()
+            if authState:                                                                                     #This is the authentication block. if user does not allow app access, exits
+                context.invoke(all_tickets)
+            else:
+                sys.exit("Authentication Failed\nExiting...")
+                
+
+        else:
+            click.echo("Exiting...")
 
 
 if __name__ == '__main__':

@@ -3,8 +3,9 @@ import sys
 import click
 import requests
 import calendar
+import json
 from datetime import datetime
-from oauth import authenticate, get_access_token, get_initial_code
+from oauth import authenticate, get_access_token, get_initial_code, retrievedOauthtoken
 
 
 
@@ -18,16 +19,11 @@ def ticket_detail_group():
 
 
 @ticket_detail_group.command()
-def ticket_detail():
-
-    if click.confirm('Are you sure you want to continue authentication? This will open a new window'):
-        """View details of a ticket with user-provided id"""  #docstring
-
-        header = authenticate()
-        if header == "Failed":                                                                          #This is the authentication block. if user does not allow app access, exits
-            sys.exit("Authentication Failed\nExiting...")
-
-
+@click.pass_context
+def ticket_detail(context):
+    if retrievedOauthtoken():
+        with open('oauth_token.json') as json_header_file:                                                          #reads local json file for header
+            header_data = json.load(json_header_file)
         goodinput = False
         while goodinput == False:
             id = click.prompt('Please enter a valid Ticket ID')
@@ -44,14 +40,14 @@ def ticket_detail():
             else:
                 goodinput = True    #break out of while loop
                 try:
-                    response = requests.get(url, headers = header, timeout=10)
+                    response = requests.get(url, headers = header_data, timeout=10)
 
                     if response.status_code >= 500:
-                        click.echo(f'Status: {response.status_code} API is unavailable.\n\tExiting...')
+                            click.echo(f'Status: {response.status_code} API is unavailable.\n\tExiting...')
                     elif response.status_code == 404:
-                        click.echo(f'Status: 404 ticket not found. Ensure the ticket id exists!')
+                            click.echo(f'Status: 404 ticket not found. Ensure the ticket id exists!')
                     elif response.status_code >= 400:
-                        click.echo(f'Status: {response.status_code} Problem with the request. Ensure your input is a positive integer.\n\tExiting...')
+                            click.echo(f'Status: {response.status_code} Problem with the request. Ensure your input is a positive integer.\n\tExiting...')
                     else:
                         response = response.json()
                         ticket_data = response['ticket']
@@ -67,9 +63,20 @@ def ticket_detail():
 
 
                 except (requests.ConnectionError, requests.Timeout) as connectionError:
-                    click.echo('Request timed out. Check your internet connection and try again!')
-    else:
-        click.echo("Exiting...")
+                    click.echo('Request timed out. Check your internet connection and try again!')    
+    elif not retrievedOauthtoken():
+        #authenticate flow
+        if click.confirm('Are you sure you want to continue authentication? This will open a new window'):
+            """View details of a ticket with user-provided id"""  #docstring
+
+            authState = authenticate()
+            if authState:                                                                                     #This is the authentication block. if user does not allow app access, exits
+                context.invoke(ticket_detail)
+            else:
+                sys.exit("Authentication Failed\nExiting...")
+
+        else:
+            click.echo("Exiting...")
 
 if __name__ == '__main__':
     ticket_detail_group()

@@ -1,6 +1,7 @@
 from requests.api import head
 from httphandler import run_server
 from urllib.parse import urlencode
+import os.path
 import requests
 import json
 import webbrowser
@@ -42,22 +43,28 @@ def get_access_token(retrieved_code):
         return access_token
 
 
-def authenticate():
+def authenticate(): #returns a boolean value
     
     my_code = get_initial_code()
     if my_code == "Error":
-        return "Failed"
+        return False
 
     my_access_token = get_access_token(my_code)
     if my_access_token == 'Failed':
-        return "Failed"
+        return False
 
     final_access_token = my_access_token
     bearer_token = 'Bearer ' + final_access_token
     header = {'Authorization': bearer_token}
-    return header
 
+    with open('oauth_token.json', 'w') as oauthFile:
+        json.dump(header, oauthFile)
 
+    return True
+
+def retrievedOauthtoken():  #returns a boolean value True or False
+    boolean = os.path.isfile("oauth_token.json")
+    return boolean
 
 
 
