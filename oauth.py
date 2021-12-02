@@ -18,7 +18,7 @@ def get_initial_code():
     webbrowser.open(url, new = 1, autoraise= True)                                             #webbrowser must be opened first before running server. new = 1 opens in new browser window if possible
     retrieved_code = run_server()
     if retrieved_code == "Error":
-        print("Authentication Failed when attempting to retrieve code from API")                                                              #spin up server to listen for get request and retrieve code
+        print("Authentication Failed when attempting to retrieve initial code from API")                                                              #spin up server to listen for get request and retrieve code
     return retrieved_code
 
 
@@ -59,7 +59,6 @@ def authenticate(): #returns a boolean value
 
     with open('oauth_token.json', 'w') as oauthFile:
         json.dump(header, oauthFile)
-
     return True
 
 def retrievedOauthtoken():  #returns a boolean value True or False

@@ -65,7 +65,7 @@ def all_tickets(context):
             if authState:                                                                                     #This is the authentication block. if user does not allow app access, exits
                 context.invoke(all_tickets)
             else:
-                sys.exit("Authentication Failed\nExiting...")
+                sys.exit("Exiting...")
                 
 
         else:
