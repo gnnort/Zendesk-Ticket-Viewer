@@ -6,7 +6,7 @@ A command-line interface application for viewing tickets on Zendesk, written in 
 - [Click Python library](https://click.palletsprojects.com/en/8.0.x/quickstart/#) (installing in virtual environment recommended)
 - [Requests Python library](https://docs.python-requests.org/en/latest/user/install/)
 
-## How to run (MacOS/Windows)
+## How to run (Windows/MacOS)
 
 1. Download the repository to your local machine with the following code.
 
@@ -15,19 +15,34 @@ $ git clone https://github.com/gnnort/Zendesk-Ticket-Viewer
 ```
 
 2. Navigate to the main repository directory in your MacOS Terminal or equivalent command line application.
-3. Install click and requests modules with the following code
+3. Install click and requests modules with:
 
 ```
 $ pip install requests
-$ pip install click #install to virtual env?
+$ pip install click 
 ```
 
-4. Run the program with the following code.
+4. Run the program with:
 
 ```
 $ python main.py 
 ```
-#### Running Tests
+NOTE: You can run the individual commands with:
+
+```
+$ python main.py <command>
+e.g. If I want to view all tickets, type 'python main.py all-tickets'
+
+```
+### User commands
+```
+python main.py all-tickets
+```
+```
+python main.py ticket-detail
+```
+
+### Running Tests
 
 1. Navigate to the repository directory 'main_test.py' in your MacOS Terminal or equivalent command line application.
 2. Run the tests with the following code
@@ -35,16 +50,8 @@ $ python main.py
 ```
 $ python main_test.py
 ```
-## Learning Resources
-- [Click Documentation](https://click.palletsprojects.com/en/8.0.x/)
-- [Unittest Guide](link)
 
-### User commands
-```
-python main.py all-tickets
-```
-```
-python main.py ticket-detail
+
 ```
 ### Files
 - ```main.py``` : Program entry point, communicates data between components. RUN THIS
@@ -83,7 +90,7 @@ This command takes in user input of a ticket ID (positive integer) to request fo
 
 These are the resources that helped me along the way
 
-- Zendesk documentation links
+- Documentation links
 
   - [Tickets](https://developer.zendesk.com/rest_api/docs/support/tickets#show-ticket)
 
@@ -93,10 +100,12 @@ These are the resources that helped me along the way
   
   - [OAuth 2.0](https://support.zendesk.com/hc/en-us/articles/203663836-Using-OAuth-authentication-with-your-application)
 
+  - [Click Documentation](https://click.palletsprojects.com/en/8.0.x/)
+
 - Unit testing in Python
 
   - [Python Unit testing guide](https://docs.python-guide.org/writing/tests)
 
   - [How to use unittest.mock.patch to mock return values](https://www.youtube.com/watch?v=WFRljVPHrkE&t=182s)
 
-##### Thank you to Zendesk for this fun project!
+##### Thank you to Zendesk for this fun project!😋
