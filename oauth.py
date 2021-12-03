@@ -7,7 +7,6 @@ import json
 import webbrowser
 
 
-
 def get_initial_code():
     parameters = {
             'response_type': 'code',
@@ -43,6 +42,12 @@ def get_access_token(retrieved_code):
         return access_token
 
 
+def retrievedOauthtoken():  #returns a boolean value True or False
+    boolean = os.path.isfile("oauth_token.json")
+    return boolean
+
+
+
 def authenticate(): #returns a boolean value
     
     my_code = get_initial_code()
@@ -61,14 +66,12 @@ def authenticate(): #returns a boolean value
         json.dump(header, oauthFile)
     return True
 
-def retrievedOauthtoken():  #returns a boolean value True or False
-    boolean = os.path.isfile("oauth_token.json")
-    return boolean
 
 
 
-def main():
-    pass
+
+
+
 
 if __name__ == "__main__":
-    main()
+    authenticate()
