@@ -59,10 +59,13 @@ def ticket_detail(context):
                         month_name = calendar.month_abbr[int(month)]
                         submit_time = unparsed_submittime.strftime(f"%d {month_name} %Y %H:%MHrs")
                         subject = ticket_data['subject']
+                        body = ticket_data['description']
                         status = ticket_data['status'].upper()
-                        click.echo(f"{status} ticket with Subject:'{subject}' opened by {submitted_by} at UTC {submit_time}")
-
-
+                        click.echo(f"\n{status} ticket with Subject:'{subject}' opened by {submitted_by} at UTC {submit_time}")
+                        click.echo(
+                                    f"""--start of message--\n\n{body}--end of message--                                   
+                                    """
+                                  )
                 except (requests.ConnectionError, requests.Timeout) as connectionError:
                     click.echo('Request timed out. Check your internet connection and try again!')    
 
