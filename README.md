@@ -80,11 +80,23 @@ This command takes in user input of a ticket ID (positive integer) to request fo
 
 
 ### Resources
--Zendesk documentation links
-    - [OAuth 2.0](https://support.zendesk.com/hc/en-us/articles/203663836-Using-OAuth-authentication-with-your-application)
-    - [Tickets](https://developer.zendesk.com/rest_api/docs/support/tickets#show-ticket)
-    - [Pagination](https://developer.zendesk.com/rest_api/docs/support/introduction#pagination)
 
--Unit Testing links
-    - [Python Unit testing guide](https://docs.python-guide.org/writing/tests)
-    - [How to use unittest.mock.patch to mock return values](https://www.youtube.com/watch?v=WFRljVPHrkE&t=182s)
+These are the resources that helped me along the way
+
+- Zendesk documentation links
+
+  - [Tickets](https://developer.zendesk.com/rest_api/docs/support/tickets#show-ticket)
+
+  - [Basic Authentication](https://developer.zendesk.com/rest_api/docs/support/introduction#basic-authentication)
+
+  - [Pagination](https://developer.zendesk.com/rest_api/docs/support/introduction#pagination)
+  
+  - [OAuth 2.0](https://support.zendesk.com/hc/en-us/articles/203663836-Using-OAuth-authentication-with-your-application)
+
+- Unit testing in Python
+
+  - [Python Unit testing guide](https://docs.python-guide.org/writing/tests)
+
+  - [How to use unittest.mock.patch to mock return values](https://www.youtube.com/watch?v=WFRljVPHrkE&t=182s)
+
+##### Thank you to Zendesk for this fun project!
