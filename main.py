@@ -1,7 +1,6 @@
 import click
 from commands.ticket_detail import ticket_detail
 from commands.all_tickets import all_tickets
-from commands.tester import test
 
 
 
@@ -33,7 +32,6 @@ Use python main.py <command> --help for detailed instructions on each command
 # all-tickets 
 cli.add_command(ticket_detail)
 cli.add_command(all_tickets)
-cli.add_command(test)
 
 
 if __name__ == '__main__':
