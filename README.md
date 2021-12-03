@@ -32,9 +32,8 @@ NOTE: You can run the individual commands with:
 ```
 $ python main.py <command>
 e.g. If I want to view all tickets, type 'python main.py all-tickets'
-
 ```
-### User commands
+#### User commands
 ```
 python main.py all-tickets
 ```
@@ -59,6 +58,8 @@ $ python main_test.py
 - ```oauth.py``` : Contains functions to authenticate user
 - ```main_test.py``` : Unit tests to test functionality of app
 
+
+
 ### Design Choices
 
 #### Why Click?
@@ -71,16 +72,17 @@ However, should you want to disable the implicit sys.exit(), [Click 3.0 allows y
 Ticket requests make use of the python requests module, a simple and human-friendly library that supports HTTP requests. It allows you to send HTTP/1.1 requests extremely easily with no need to manually add query strings to your URLs, or to form-encode your POST data.
 
 #### Authentication method
-The main version of the ticket viewer uses Oauth 2.0 for authentication via the authorization code grant flow. This is for added security as the user's email and password are never stored in the code. The scope of access can also be configured. (It is set to read-only for this application)
-For those who would rather email and password authentication, there is a branch of the application that supports it.
+I implemented Oauth 2.0 via the authorization code grant flow for 2 reasons:
+1. Username and Password will not be stored in the code, which would have been a security vulnerability
+2. Scope limits can be defined. I have set it to _read only_
 
+For those who would rather email and password authentication, there is a branch of the application that supports it named 'normalauth'.
 
-### Commands
-
-#### 'all-tickets'
+#### Commands
+ 'all-tickets'
 This command requests for the user's tickets from the Zendesk API, in chunks of 25. The code appends these 25 tickets to a list and prints out its contents to the command-line with a page number; this will continue until reaching the last page. [Cursor pagination was used for this as it is preferred over offset pagination](https://developer.zendesk.com/documentation/developer-tools/working-with-data/understanding-the-limitations-of-offset-pagination/).
 
-#### 'ticket-detail'
+ 'ticket-detail'
 This command takes in user input of a ticket ID (positive integer) to request for a specific ticket. Ticket IDs can be viewed using the all-tickets command.
 
 
