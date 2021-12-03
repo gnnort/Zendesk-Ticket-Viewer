@@ -59,8 +59,9 @@ However, should you want to disable the implicit sys.exit(), [Click 3.0 allows y
 
 #### Connecting to the Zendesk API & requesting tickets from your account
 Ticket requests within this application make use of the python requests, a simple and human-friendly library.
-
-For authentication, I am using email and token verification for slightly better security by not requiring the account's password to be in the code files. I am currently working on implementing OAuth 2.0 to further improve security!
+#### Authentication
+The main version of the ticket viewer uses Oauth 2.0 for authentication via the authorization code grant flow. This is for added security as the user's email and password are never stored in the code. The scope of access can also be configured. (It is set to read-only for this application)
+For those who would rather email and password authentication, there is a branch of the application that supports it.
 
 ### Commands
 #### 'all-tickets'
