@@ -30,30 +30,6 @@ class Ticketdetail_Test(unittest.TestCase):
             result = runner.invoke(ticket_detail)
             self.assertEqual(result.output, exitstring)
 
-    # def test_ticket_detail_REQUEST500(self):
-    #     runner = CliRunner()
-    #     with mock.patch('commands.ticket_detail.testing', return_value= True):
-    #         with mock.patch('commands.ticket_detail.requests.get', return_value= 500):
-    #             result = runner.invoke(ticket_detail)
-    #             self.assertEqual(result.output, 5)
-
-
-
-    # def test_ticket_detail_404ERROR(self):
-    #     runner = CliRunner()
-    #     test_string = 'Please enter a valid Ticket ID: 1000\nStatus: 404 ticket not found. Ensure the ticket id exists!\n'
-    #     result = runner.invoke(ticket_detail, input = '1000')
-    #     self.assertEqual(result.output, test_string, "Should be equal")
-    #     self.assertFalse(result.exception)
-    
-    
-
-#     def test_ticket_detail_CONNECTIONFAILED(self):
-#         pass #how to simulate no connection?
-#     def test_ticket_detail_SERVERERROR(self):
-#         pass
-
-
 class AllTickets_Test(unittest.TestCase):
 
     def setUp(self):                                                                                         #Cases where user confirms authentication but auth fails go here
@@ -63,7 +39,7 @@ class AllTickets_Test(unittest.TestCase):
         self.authenticate.start()
 
     def test_all_tickets_AUTHFAIL(self):
-        exitstring = "Authentication Failed\nExiting...\n"
+        exitstring = "Exiting...\n"
         runner = CliRunner()
         result = runner.invoke(all_tickets)
         self.assertEqual(result.output, exitstring)   

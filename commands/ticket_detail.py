@@ -1,11 +1,10 @@
-from os import stat_result
 import sys
 import click
 import requests
 import calendar
 import json
 from datetime import datetime
-from oauth import authenticate, get_access_token, get_initial_code, retrievedOauthtoken
+from oauth import authenticate, retrievedOauthtoken
 
 
 

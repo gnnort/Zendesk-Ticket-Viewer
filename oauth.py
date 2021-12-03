@@ -1,4 +1,3 @@
-from requests.api import head
 from httphandler import run_server
 from urllib.parse import urlencode
 import os.path
