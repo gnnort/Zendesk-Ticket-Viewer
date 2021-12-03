@@ -6,12 +6,19 @@ import json
 import webbrowser
 
 
+with open('user_details.json') as user_details_file:
+    user_details = json.load(user_details_file)
+    redirect_uri = user_details['redirect_uri']
+    scope = user_details['scope']
+    client_id = user_details['client_id']
+    client_secret = user_details['client_secret']
+
 def get_initial_code():
     parameters = {
             'response_type': 'code',
-            'redirect_uri': 'http://localhost:8080',
-            'client_id': 'tron_zendesk_ticket_viewer',
-            'scope': 'read'}
+            'redirect_uri': redirect_uri,
+            'client_id': client_id,
+            'scope': scope}
     url = 'https://tron7825.zendesk.com/oauth/authorizations/new?' + urlencode(parameters)
     webbrowser.open(url, new = 1, autoraise= True)                                             #webbrowser must be opened first before running server. new = 1 opens in new browser window if possible
     retrieved_code = run_server()
@@ -24,10 +31,10 @@ def get_access_token(retrieved_code):
     parameters = {
             'grant_type': 'authorization_code',
             'code': retrieved_code,
-            'client_id': 'tron_zendesk_ticket_viewer',
-            'client_secret': '0dc2350f7a5b8242b87f62bd72869f4cceff618850212a7c8146d86c2028840c',
-            'redirect_uri': 'http://localhost:8080',
-            'scope': 'read write'}
+            'client_id': client_id,
+            'client_secret': client_secret,
+            'redirect_uri': redirect_uri,
+            'scope': scope}
     payload = json.dumps(parameters)
     header = {'Content-Type': 'application/json'}
     url = 'https://tron7825.zendesk.com/oauth/tokens'

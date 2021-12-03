@@ -28,9 +28,9 @@ class Requesthandler(BaseHTTPRequestHandler):
             self.wfile.write(output.encode())
 
 class Httpserver(HTTPServer):
-    timeout = 10                                                    #seconds until handle request times out
+    timeout = 30                                                    #seconds until handle request times out
     def handle_timeout(self) -> None:
-        print("Session timed out after 5 seconds!")
+        print("Session timed out after 30 seconds!")
         return super().handle_timeout()
     
     def handle_request(self) -> None:

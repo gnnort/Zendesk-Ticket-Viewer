@@ -1,0 +1,6 @@
+{
+    "client_id":"tron_zendesk_ticket_viewer",
+    "client_secret":"0dc2350f7a5b8242b87f62bd72869f4cceff618850212a7c8146d86c2028840c",
+    "scope":"read",
+    "redirect_uri":"http://localhost:8080"
+}
