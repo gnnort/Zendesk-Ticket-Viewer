@@ -51,8 +51,6 @@ python main.py ticket-detail
 $ python main_test.py
 ```
 
-
-```
 ### Files
 - ```main.py``` : Program entry point, communicates data between components. RUN THIS
 - ```commands.all_tickets.py``` : Makes request to the API to retrieve all tickets in account. Sent in chunks of 25 tickets per page
