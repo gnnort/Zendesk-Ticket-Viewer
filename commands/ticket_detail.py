@@ -4,7 +4,7 @@ import requests
 import calendar
 import json
 from datetime import datetime
-from oauth import authenticate, retrievedOauthtoken
+from authentication.oauth import authenticate, retrievedOauthtoken
 
 
 
@@ -22,7 +22,7 @@ def ticket_detail_group():
 @click.pass_context
 def ticket_detail(context):
     if retrievedOauthtoken():
-        with open('oauth_token.json') as json_header_file:                                                          #reads local json file for header
+        with open('authentication/oauth_token.json') as json_header_file:                                                          #reads local json file for header
             header_data = json.load(json_header_file)
         goodinput = False
         while goodinput == False:

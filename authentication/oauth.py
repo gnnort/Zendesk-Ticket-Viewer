@@ -1,4 +1,4 @@
-from httphandler import run_server
+from authentication.httphandler import run_server
 from urllib.parse import urlencode
 import os.path
 import requests
@@ -6,7 +6,7 @@ import json
 import webbrowser
 
 
-with open('user_details.json') as user_details_file:
+with open('authentication/user_details.json') as user_details_file:
     user_details = json.load(user_details_file)
     redirect_uri = user_details['redirect_uri']
     scope = user_details['scope']
@@ -49,7 +49,7 @@ def get_access_token(retrieved_code):
 
 
 def retrievedOauthtoken():  #returns a boolean value True or False
-    boolean = os.path.isfile("oauth_token.json")
+    boolean = os.path.isfile("authentication/oauth_token.json")
     return boolean
 
 
@@ -68,7 +68,7 @@ def authenticate(): #returns a boolean value
     bearer_token = 'Bearer ' + final_access_token
     header = {'Authorization': bearer_token}
 
-    with open('oauth_token.json', 'w') as oauthFile:
+    with open('authentication/oauth_token.json', 'w') as oauthFile:
         json.dump(header, oauthFile)
     return True
 

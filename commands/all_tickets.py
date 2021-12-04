@@ -4,7 +4,7 @@ import requests
 import json
 from datetime import datetime
 from requests.models import Response
-from oauth import authenticate, retrievedOauthtoken
+from authentication.oauth import authenticate, retrievedOauthtoken
 
 
 
@@ -24,7 +24,7 @@ def all_tickets(context):
 
         url = "https://tron7825.zendesk.com/api/v2/tickets" + ".json" + "?page[size]=25"                            #each page will have 25 tickets 
         page_count = 0
-        with open('oauth_token.json') as json_header_file:                                                          #reads local json file for header
+        with open('authentication/oauth_token.json') as json_header_file:                                                          #reads local json file for header
             header_data = json.load(json_header_file)
         while url:
             page_count += 1
