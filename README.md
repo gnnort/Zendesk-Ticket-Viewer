@@ -11,27 +11,27 @@ A command-line interface application for viewing tickets on Zendesk, written in 
 1. Download the repository to your local machine with the following code.
 
 ```
-$ git clone https://github.com/gnnort/Zendesk-Ticket-Viewer
+git clone https://github.com/gnnort/Zendesk-Ticket-Viewer
 ```
 
 2. Navigate to the main repository directory in your MacOS Terminal or equivalent command line application.
 3. Install click and requests modules with:
 
 ```
-$ pip install requests
-$ pip install click 
+pip install requests
+pip install click 
 ```
 ## How to Use
 *NOTE: The default user details will be for my account. If you want to try this on your account, please fill in your details in authentication\user_details.txt
 Run the program with:
 
 ```
-$ python main.py 
+python main.py 
 ```
 NOTE: You can run the individual commands with:
 
 ```
-$ python main.py <command>
+python main.py <command>
 e.g. If I want to view all tickets, type 'python main.py all-tickets'
 ```
 #### User commands
@@ -48,7 +48,7 @@ python main.py ticket-detail
 2. Run the tests with the following code
 
 ```
-$ python main_test.py
+python main_test.py
 ```
 
 ### Files
