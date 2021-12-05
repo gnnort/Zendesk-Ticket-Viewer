@@ -3,7 +3,7 @@ A command-line interface application for viewing tickets on Zendesk, written in 
 
 ## Prerequisite Installations
 - Python 3.7 or greater
-- [Click Python library](https://click.palletsprojects.com/en/8.0.x/quickstart/#) (installing in virtual environment recommended)
+- [Click Python library](https://click.palletsprojects.com/en/8.0.x/quickstart/#)
 - [Requests Python library](https://docs.python-requests.org/en/latest/user/install/)
 
 ## Installation (Windows/MacOS)
