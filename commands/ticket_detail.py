@@ -23,10 +23,11 @@ def ticket_detail(context):
     if retrievedOauthtoken():
         with open('authentication/oauth_token.json') as json_header_file:                                                          #reads local json file for header
             header_data = json.load(json_header_file)
+
         goodinput = False
         while goodinput == False:
             id = click.prompt('Please enter a valid Ticket ID')
-            url = "https://{subdomain}.zendesk.com/api/v2/tickets/" + str(id) + ".json"
+            url = f"https://{subdomain}.zendesk.com/api/v2/tickets/" + str(id) + ".json"
 
             try:
                 id = int(id)
@@ -62,7 +63,7 @@ def ticket_detail(context):
                         status = ticket_data['status'].upper()
                         click.echo(f"\n{status} ticket with Subject:'{subject}' opened by {submitted_by} at UTC {submit_time}")
                         click.echo(
-                                    f"""--start of message--\n\n{body}--end of message--                                   
+                                    f"""--start of message--\n\n{body}\n\n--end of message--                                   
                                     """
                                   )
                 except (requests.ConnectionError, requests.Timeout) as connectionError:
