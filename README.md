@@ -6,7 +6,7 @@ A command-line interface application for viewing tickets on Zendesk, written in 
 - [Click Python library](https://click.palletsprojects.com/en/8.0.x/quickstart/#) (installing in virtual environment recommended)
 - [Requests Python library](https://docs.python-requests.org/en/latest/user/install/)
 
-## How to run (Windows/MacOS)
+## Installation (Windows/MacOS)
 
 1. Download the repository to your local machine with the following code.
 
@@ -21,8 +21,9 @@ $ git clone https://github.com/gnnort/Zendesk-Ticket-Viewer
 $ pip install requests
 $ pip install click 
 ```
-
-4. Run the program with:
+## How to Use
+*NOTE: The default user details will be for my account. If you want to try this on your account, please fill in your details in authentication\user_details.txt
+Run the program with:
 
 ```
 $ python main.py 
