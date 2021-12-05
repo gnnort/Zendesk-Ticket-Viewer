@@ -22,7 +22,9 @@ pip install requests
 pip install click 
 ```
 ## How to Use
-_NOTE: The default user details will be for my account. If you want to try this on your account, please fill in your details in authentication\user_details.txt_
+_NOTE: The default user details will be for my account.
+If you want to try this on your account, please fill in your details in authentication\user_details.txt
+The redirect URI should **ALWAYS** be http://localhost:8080_
 
 Run the program with:
 ```
