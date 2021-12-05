@@ -22,9 +22,9 @@ pip install requests
 pip install click 
 ```
 ## How to Use
-*NOTE: The default user details will be for my account. If you want to try this on your account, please fill in your details in authentication\user_details.txt
-Run the program with:
+_NOTE: The default user details will be for my account. If you want to try this on your account, please fill in your details in authentication\user_details.txt_
 
+Run the program with:
 ```
 python main.py 
 ```
