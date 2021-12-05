@@ -23,7 +23,7 @@ pip install click
 ```
 ## How to Use
 _NOTE: The default user details will be for my account.
-If you want to try this on your account, please fill in your details in Zendesk-Ticket-Viewer/authentication/user_details.txt (The redirect URI should **ALWAYS** be http://localhost:8080)_
+If you want to try this on your account, please fill in your details in Zendesk-Ticket-Viewer/authentication/user_details.txt (The redirect URI should **ALWAYS** be http://localhost:8080 and must match the Redirect URL on your Zendesk OAuth clients page)_
 
 Run the program with:
 ```
