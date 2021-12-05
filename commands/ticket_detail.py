@@ -6,7 +6,7 @@ import json
 from datetime import datetime
 from authentication.oauth import authenticate, retrievedOauthtoken
 
-with open('authentication/user_details.json') as user_details_file:
+with open('authentication/user_details.txt') as user_details_file:
     user_details = json.load(user_details_file)
     subdomain = user_details['subdomain']
 

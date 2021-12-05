@@ -6,7 +6,7 @@ import json
 import webbrowser
 
 
-with open('authentication/user_details.json') as user_details_file:
+with open('authentication/user_details.txt') as user_details_file:
     user_details = json.load(user_details_file)
     redirect_uri = user_details['redirect_uri']
     scope = user_details['scope']
