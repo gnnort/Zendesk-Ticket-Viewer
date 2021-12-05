@@ -12,6 +12,7 @@ with open('authentication/user_details.json') as user_details_file:
     scope = user_details['scope']
     client_id = user_details['client_id']
     client_secret = user_details['client_secret']
+    subdomain = user_details['subdomain']
 
 def get_initial_code():
     parameters = {
@@ -19,7 +20,7 @@ def get_initial_code():
             'redirect_uri': redirect_uri,
             'client_id': client_id,
             'scope': scope}
-    url = 'https://tron7825.zendesk.com/oauth/authorizations/new?' + urlencode(parameters)
+    url = f'https://{subdomain}.zendesk.com/oauth/authorizations/new?' + urlencode(parameters)
     webbrowser.open(url, new = 1, autoraise= True)                                             #webbrowser must be opened first before running server. new = 1 opens in new browser window if possible
     retrieved_code = run_server()
     if retrieved_code == "Error":
@@ -37,7 +38,7 @@ def get_access_token(retrieved_code):
             'scope': scope}
     payload = json.dumps(parameters)
     header = {'Content-Type': 'application/json'}
-    url = 'https://tron7825.zendesk.com/oauth/tokens'
+    url = f'https://{subdomain}.zendesk.com/oauth/tokens'
     r = requests.post(url, data=payload, headers=header)
     if r.status_code != 200:
         print("Could not receive access token from API")

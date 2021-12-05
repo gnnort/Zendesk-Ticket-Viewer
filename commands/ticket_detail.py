@@ -6,10 +6,9 @@ import json
 from datetime import datetime
 from authentication.oauth import authenticate, retrievedOauthtoken
 
-
-
-def testing():
-    return False
+with open('authentication/user_details.json') as user_details_file:
+    user_details = json.load(user_details_file)
+    subdomain = user_details['subdomain']
 
 
 
@@ -27,7 +26,7 @@ def ticket_detail(context):
         goodinput = False
         while goodinput == False:
             id = click.prompt('Please enter a valid Ticket ID')
-            url = "https://tron7825.zendesk.com/api/v2/tickets/" + str(id) + ".json"
+            url = "https://{subdomain}.zendesk.com/api/v2/tickets/" + str(id) + ".json"
 
             try:
                 id = int(id)

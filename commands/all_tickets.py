@@ -8,7 +8,9 @@ from authentication.oauth import authenticate, retrievedOauthtoken
 
 
 
-
+with open('authentication/user_details.json') as user_details_file:
+    user_details = json.load(user_details_file)
+    subdomain = user_details['subdomain']
 
 
 
@@ -22,7 +24,7 @@ def all_tickets_group():
 def all_tickets(context):
     if retrievedOauthtoken():
 
-        url = "https://tron7825.zendesk.com/api/v2/tickets" + ".json" + "?page[size]=25"                            #each page will have 25 tickets 
+        url = f"https://{subdomain}.zendesk.com/api/v2/tickets" + ".json" + "?page[size]=25"                            #each page will have 25 tickets 
         page_count = 0
         with open('authentication/oauth_token.json') as json_header_file:                                                          #reads local json file for header
             header_data = json.load(json_header_file)
