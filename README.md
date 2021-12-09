@@ -13,9 +13,7 @@ A command-line interface application for viewing tickets on Zendesk, written in 
 ```
 git clone https://github.com/gnnort/Zendesk-Ticket-Viewer
 ```
-
-2. Navigate to the main repository directory in your MacOS Terminal or equivalent command line application.
-3. Install click and requests modules with:
+2. Install click and requests modules with:
 
 ```
 pip install requests
@@ -25,7 +23,8 @@ pip install click
 _NOTE: The default user details will be for my account.
 For this to work on your Zendesk account, please fill in your details in Zendesk-Ticket-Viewer/authentication/user_details.txt (The redirect URI should **ALWAYS** be http://localhost:8080 and [must match the Redirect URL on your Zendesk OAuth clients page](https://support.zendesk.com/hc/en-us/articles/4408845965210-Using-OAuth-authentication-with-your-application))_
 
-Run the program with:
+1. Navigate to the main repository directory in your Terminal or equivalent Command-Line application.
+2. Run the program with:
 ```
 python main.py 
 ```
